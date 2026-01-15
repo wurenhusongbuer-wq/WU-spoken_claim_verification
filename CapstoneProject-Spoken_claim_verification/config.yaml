@@ -1,0 +1,109 @@
+# Spoken Claim Verification System Configuration
+
+# Speech Recognition Configuration
+whisper:
+  model: "large-v3"
+  language: "en"
+  device: "cpu"  # or "cuda" for GPU
+  compute_type: "float32"
+
+# Gemini LLM Configuration
+gemini:
+  model: "gemini-2.5-pro"
+  temperature: 0.3
+  max_tokens: 2000
+  top_p: 0.95
+  top_k: 40
+
+# Evidence Retrieval Configuration
+evidence_retrieval:
+  num_results: 5
+  extract_full_text: false
+  timeout: 10
+  max_retries: 3
+
+# Evidence Reranking Configuration
+evidence_reranking:
+  domain_authority_weight: 0.4
+  keyword_overlap_weight: 0.4
+  recency_weight: 0.2
+  min_score_threshold: 0.3
+  top_k: 3
+
+# Verification Configuration
+verification:
+  confidence_threshold: 0.5
+  use_baseline_comparison: false
+  save_reasoning: true
+
+# Database Configuration
+database:
+  mysql:
+    host: "localhost"
+    port: 3306
+    user: "root"
+    password: "root"
+    database: "claim_verification"
+    pool_size: 5
+  
+  influxdb:
+    url: "http://localhost:8086"
+    org: "capstone"
+    bucket: "metrics"
+    timeout: 10
+
+# Processing Configuration
+processing:
+  batch_size: 10
+  max_workers: 4
+  timeout: 300
+  retry_attempts: 3
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/application.log"
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+
+# API Configuration
+api:
+  whisper_service_url: "http://localhost:8001"
+  google_search_timeout: 10
+  gemini_timeout: 60
+
+# Data Configuration
+data:
+  base_dir: "./data"
+  video_dir: "./data/videos"
+  audio_dir: "./data/audio"
+  transcript_dir: "./data/transcripts"
+  max_video_size_mb: 500
+  supported_formats:
+    - "mp4"
+    - "avi"
+    - "mov"
+    - "mkv"
+    - "webm"
+
+# Monitoring Configuration
+monitoring:
+  enable_metrics: true
+  metrics_interval: 60  # seconds
+  enable_dashboards: true
+  grafana_url: "http://localhost:3000"
+
+# Performance Tuning
+performance:
+  enable_caching: true
+  cache_ttl: 3600  # seconds
+  enable_compression: true
+  batch_processing: true
+
+# Ethical Configuration
+ethics:
+  anonymize_data: true
+  log_decisions: true
+  enable_audit_trail: true
+  data_retention_days: 90
